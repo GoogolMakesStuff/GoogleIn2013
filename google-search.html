@@ -1,144 +1,34 @@
-<div style="position: fixed; top: 0; left: 0; width: 100%; background-color: #f1f1f1; padding: 12px 20px; border-bottom: 1px solid #ccc; z-index: 10000; font-family: Arial, sans-serif; box-sizing: border-box; text-align: left;">
-    <a href="index.html" style="text-decoration: none; color: #4285f4; font-weight: bold; font-size: 14px; display: inline-block;">
-        ← Back to Download Page
-    </a>
+<div style="position: fixed; top: 0; left: 0; width: 100%; background-color: #f1f1f1; padding: 12px; border-bottom: 1px solid #ccc; z-index: 10000; font-family: Arial; text-align: left;">
+    <a href="index.html" style="text-decoration: none; color: #4285f4; font-weight: bold;">← Back to Download Page</a>
 </div>
 
-<div style="height: 50px;"></div>
-<html>
-<head>
-    <title>Google</title>
-    <style>
-        body { margin: 0; padding: 0; font-family: arial, sans-serif; background: #fff; }
-        
-        /* The Classic 2013 Black Bar */
-        #nav-bar {
-            background: #2d2d2d;
-            height: 30px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            padding-left: 15px;
-        }
-        #nav-bar a {
-            color: #ccc;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: bold;
-            margin-right: 15px;
-        }
-        #nav-bar a:hover { color: #fff; }
+<div style="height: 100px;"></div>
 
-        /* The Blue Glow Focus */
-        input[type="text"]:focus {
-            outline: none;
-            border: 1px solid #4d90fe !important;
-            box-shadow: inset 0 1px 2px rgba(0,0,0,0.3), 0 0 4px 1px rgba(77,144,254,0.5);
-        }
-
-        .container { text-align: center; padding-top: 80px; }
-        
-        .search-bar {
-            width: 500px;
-            height: 35px;
-            padding: 10px;
-            border: 1px solid #d9d9d9;
-            font-size: 16px;
-            margin-top: 20px;
-        }
-
-        .btn-container { margin-top: 25px; }
-
-        /* Classic 2013 Button Style */
-        .google-btn {
-            height: 36px;
-            line-height: 27px;
-            background-color: #f2f2f2;
-            background-image: linear-gradient(top,#f5f5f5,#f1f1f1);
-            border: 1px solid #dcdcdc;
-            border-radius: 2px;
-            color: #444;
-            cursor: pointer;
-            font-family: arial,sans-serif;
-            font-size: 13px;
-            font-weight: bold;
-            margin: 11px 4px;
-            min-width: 54px;
-            padding: 0 16px;
-            text-align: center;
-        }
-        .google-btn:hover {
-            border: 1px solid #c6c6c6;
-            color: #222;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-        }
-    </style>
-    <script>
-        function searchGoogle(lucky) {
-            var query = document.getElementById('searchBox').value;
-            var url = 'https://www.google.com/search?q=' + encodeURIComponent(query);
-            if(lucky) url += '&btnI=I';
-            
-            // Opens in a side window so your 2013 page stays on screen
-            window.open(url, 'results', 'width=1000,height=900,left=450,top=50');
-            return false;
-        }
-    </script>
-</head>
-<body>
-
-    <div id="nav-bar">
-        <a href="https://myaccount.google.com/" target="_blank">+You</a>
-        <a href="https://mail.google.com" target="_blank">Gmail</a>
-        <a href="https://www.google.com/imghp" target="_blank">Images</a>
-        <a href="https://www.google.com/maps" target="_blank">Maps</a>
-        <a href="https://play.google.com" target="_blank">Play</a>
-        <a href="https://www.youtube.com" target="_blank">YouTube</a>
-        <a href="https://news.google.com" target="_blank">News</a>
-        <a href="https://drive.google.com" target="_blank">Drive</a>
+<center>
+    <img id="hplogo" src="https://web.archive.org/web/20130901000000im_/http://www.google.com/images/srpr/logo11w.png" alt="Google" style="cursor:pointer; width:269px; height:95px;">
+    
+    <div style="margin-top:20px;">
+        <input type="text" style="width: 500px; padding: 8px; border: 1px solid #d9d9d9; font-size: 16px;">
     </div>
-
-    <div class="container">
-        <img src="http://www.google.com/images/srpr/logo11w.png" width="269" height="92">
-        
-        <form onsubmit="return searchGoogle(false);">
-            <input type="text" id="searchBox" class="search-bar">
-            
-            <div class="btn-container">
-                <input type="submit" class="google-btn" value="Google Search">
-                <input type="button" class="google-btn" value="I'm Feeling Lucky" onclick="searchGoogle(true);">
-            </div>
-        </form>
-
-        <p style="font-size: 13px; color: #666; margin-top: 30px;">
-            &copy;2016-2026 Jan Zaluski Inc.
-        </p>
-        
-        <p style="font-size: 11px; color: #999;">
-            NOTE: All links connected. Motivational Update v.0.0.6 (Full Nav).
-        </p>
+    
+    <div style="margin-top:20px;">
+        <input type="button" value="Google Search" style="padding: 10px 20px;" onclick="console.log('Stay in 2013!')">
+        <input type="button" value="I'm Feeling Lucky" style="padding: 10px 20px;">
     </div>
+</center>
 
-    <script>
+<script>
     let clickCount = 0;
-    // Replace 'hplogo' with the actual ID of your logo image if it's different
-    const logo = document.getElementById('hplogo') || document.querySelector('img');
-
-    logo.style.transition = "all 2s ease"; // This makes the change "slow" and smooth
-
+    const logo = document.getElementById('hplogo');
+    
     logo.addEventListener('click', function() {
         clickCount++;
-        console.log("Clicks: " + clickCount);
-
         if (clickCount === 5) {
-            // This changes the logo to the modern Google logo
+            // Transform to Modern Logo
             logo.src = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
-            logo.style.transform = "rotate(360deg) scale(1.1)";
-            alert("Easter Egg Found: Welcome to the Future!");
+            logo.style.transition = "all 3s ease";
+            logo.style.transform = "rotate(360deg) scale(1.2)";
+            alert("Easter Egg Found! 2013 is evolving...");
         }
     });
 </script>
-</body>
-</html>
-
-
