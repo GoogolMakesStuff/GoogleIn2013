@@ -119,6 +119,26 @@
         </p>
     </div>
 
+    <script>
+    let clickCount = 0;
+    // Replace 'hplogo' with the actual ID of your logo image if it's different
+    const logo = document.getElementById('hplogo') || document.querySelector('img');
+
+    logo.style.transition = "all 2s ease"; // This makes the change "slow" and smooth
+
+    logo.addEventListener('click', function() {
+        clickCount++;
+        console.log("Clicks: " + clickCount);
+
+        if (clickCount === 5) {
+            // This changes the logo to the modern Google logo
+            logo.src = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
+            logo.style.transform = "rotate(360deg) scale(1.1)";
+            alert("Easter Egg Found: Welcome to the Future!");
+        }
+    });
+</script>
 </body>
 </html>
+
 
