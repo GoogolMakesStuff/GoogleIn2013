@@ -1,83 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Google 2013 Archive</title>
+    <title>Google 2013</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: white; text-align: center; }
-        #nav-bar { position: fixed; top: 0; left: 0; width: 100%; background: #f1f1f1; padding: 12px; border-bottom: 1px solid #ccc; z-index: 1000; text-align: left; box-sizing: border-box; }
-        #nav-bar a { text-decoration: none; color: #4285f4; font-weight: bold; font-size: 14px; }
-        .main-content { margin-top: 150px; }
-        #hplogo { width: 269px; height: 95px; cursor: pointer; transition: all 2s ease; }
-        .search-box { width: 500px; padding: 10px; border: 1px solid #d9d9d9; font-size: 16px; margin: 20px 0; outline: none; }
-        .btn { padding: 10px 20px; background: #f2f2f2; border: 1px solid #f2f2f2; color: #757575; cursor: pointer; font-weight: bold; margin: 4px; border-radius: 2px; }
-        .btn:hover { border: 1px solid #c6c6c6; color: #222; }
+        body { font-family: arial, sans-serif; text-align: center; padding-top: 150px; overflow: hidden; }
+        #logo-container { position: relative; display: inline-block; width: 272px; height: 92px; }
+        #google-logo { width: 272px; transition: opacity 0.5s; }
+        .search-box { width: 485px; padding: 5px; font-size: 16px; border: 1px solid #d9d9d9; margin-top: 20px; }
+        .buttons { margin-top: 20px; }
+        button { background: #f2f2f2; border: 1px solid #f2f2f2; padding: 10px 15px; font-weight: bold; cursor: pointer; color: #757575; }
+        #stickman-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        .stickman { position: absolute; bottom: -50px; font-size: 40px; transition: all 1s ease-in-out; }
+        #welcome-text { display: none; margin-top: 10px; color: #4285F4; font-style: italic; font-weight: bold; }
+        .footer { position: fixed; bottom: 10px; width: 100%; font-size: 12px; color: #666; }
     </style>
 </head>
 <body>
 
-    <div id="nav-bar">
-        <a href="index.html">← Back to Download Page</a>
+    <div id="logo-container">
+        <img id="google-logo" src="https://web.archive.org/web/20130901000000im_/http://www.google.com/images/srpr/logo11w.png" alt="Google">
+        <div id="stickman-layer"></div>
     </div>
+    
+    <div id="welcome-text">Welcome, To the beyond future...</div>
 
-    <div class="main-content">
-        <img id="hplogo" src="https://web.archive.org/web/20130901000000im_/http://www.google.com/images/srpr/logo11w.png" alt="Google">
-        
-        <br>
-        <input type="text" id="search-input" class="search-box" placeholder="Search the web...">
-        <br>
-        
-        <input type="button" id="search-btn" class="btn" value="Google Search">
-        <input type="button" class="btn" value="I'm Feeling Lucky">
-        
-        <p style="margin-top: 50px; color: #666; font-size: 13px;">Jan Zaluski Inc. - Preservation Project</p>
-    </div>
+    <form action="http://www.google.pl/search" method="GET">
+        <input type="hidden" name="gbv" value="1">
+        <input type="text" name="q" class="search-box"><br>
+        <div class="buttons">
+            <button type="submit" id="search-btn">Szukaj w Google</button>
+            <button type="button">Szczęśliwy traf</button>
+        </div>
+    </form>
+
+    <div class="footer">© 2013 - Prywatność - Warunki</div>
 
     <script>
         let clicks = 0;
-        let timer;
-        const logo = document.getElementById('hplogo');
         const btn = document.getElementById('search-btn');
-        const input = document.getElementById('search-input');
+        const logo = document.getElementById('google-logo');
+        const layer = document.getElementById('stickman-layer');
+        const welcome = document.getElementById('welcome-text');
 
-        btn.addEventListener('click', function() {
-            const query = input.value;
-            
-            // Easter Egg Logic: Count fast clicks
-            clearTimeout(timer);
+        btn.addEventListener('click', function(e) {
             clicks++;
-            timer = setTimeout(() => {
-                // If they only clicked once, just search normally
-                if (clicks === 1 && query !== "") {
-                    window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(query);
-                }
-                clicks = 0; 
-            }, 1000);
-
-            // Trigger Egg on 5th click
             if (clicks === 5) {
-                logo.src = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
-                logo.style.transform = "rotate(360deg) scale(1.1)";
-                btn.style.background = "#4285f4";
-                btn.style.color = "white";
-                btn.style.border = "none";
+                e.preventDefault();
+                startAnimation();
+            }
+        });
+
+        function startAnimation() {
+            // 1. Stickman zmywający (zmazujący) logo
+            const cleaner = document.createElement('div');
+            cleaner.className = 'stickman';
+            cleaner.innerHTML = '🧹🏃';
+            cleaner.style.left = '-100px';
+            layer.appendChild(cleaner);
+
+            setTimeout(() => {
+                cleaner.style.left = '110px';
+                cleaner.style.bottom = '10px';
+            }, 100);
+
+            setTimeout(() => {
+                logo.style.opacity = '0'; // Zmazywanie logo
+                cleaner.style.left = '350px'; // Odbiega
+            }, 1500);
+
+            // 2. 4 Stickmany niosące nowe logo
+            setTimeout(() => {
+                const team = document.createElement('div');
+                team.className = 'stickman';
+                team.style.left = '-300px';
+                team.style.bottom = '10px';
+                // Nowe płaskie logo z 2026 i ekipa
+                team.innerHTML = '🏃🏃<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" style="width:150px; vertical-align:middle;">🏃🏃';
+                layer.appendChild(team);
                 
-                // If they have text, search after the animation finishes
-                if (query !== "") {
-                    setTimeout(() => {
-                        window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(query);
-                    }, 2000);
-                }
-            }
-        });
-
-        // Allow "Enter" key to search normally
-        input.addEventListener("keypress", function(e) {
-            if (e.key === "Enter" && input.value !== "") {
-                window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(input.value);
-            }
-        });
+                setTimeout(() => {
+                    team.style.left = '40px';
+                    welcome.style.display = 'block'; // Napis pod nowym logiem
+                }, 100);
+            }, 2500);
+        }
     </script>
-
 </body>
 </html>
