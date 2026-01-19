@@ -1,40 +1,29 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Google 2013</title>
+    <title>Google</title>
     <style>
-        body { font-family: arial, sans-serif; margin: 0; padding: 0; background: white; text-align: center; }
-        
-        /* Klasyczny czarny pasek Google */
+        body { font-family: arial, sans-serif; margin: 0; padding: 0; background: white; text-align: center; overflow-x: hidden; }
         #gb { background: #2d2d2d; height: 30px; line-height: 30px; text-align: left; padding-left: 15px; font-size: 13px; }
         #gb a { color: #ccc; text-decoration: none; margin-right: 15px; font-weight: bold; }
         #gb a:hover { color: white; }
-
         #container { padding-top: 130px; }
-        
         #logo-container { position: relative; display: inline-block; width: 272px; height: 92px; margin-bottom: 25px; }
         #google-logo { width: 272px; display: block; }
-        
         .search-box { width: 485px; padding: 7px; font-size: 16px; border: 1px solid #d9d9d9; outline: none; }
-        .search-box:hover { border: 1px solid #b9b9b9; }
-        
         .buttons { margin-top: 25px; }
-        .btn { background: #f2f2f2; border: 1px solid #dcdcdc; padding: 10px 15px; font-weight: bold; cursor: pointer; color: #757575; font-size: 13px; margin: 0 4px; border-radius: 2px; }
-        .btn:hover { border: 1px solid #c6c6c6; color: #222; box-shadow: 0 1px 1px rgba(0,0,0,0.1); }
-
-        /* Styl Stickmanów */
+        .btn { background: #f2f2f2; border: 1px solid #dcdcdc; padding: 10px 15px; font-weight: bold; cursor: pointer; color: #757575; font-size: 13px; margin: 0 4px; }
         #stickman-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
-        .stickman { position: absolute; bottom: -60px; font-size: 40px; transition: all 1.2s ease-in-out; white-space: nowrap; z-index: 100; }
+        .stickman { position: absolute; bottom: -60px; font-size: 40px; transition: all 1.2s ease-in-out; white-space: nowrap; z-index: 1000; }
         #welcome-text { display: none; margin-top: 25px; color: #4285F4; font-family: "Times New Roman", serif; font-style: italic; font-size: 26px; }
-        
         .footer { position: fixed; bottom: 15px; width: 100%; font-size: 12px; color: #666; }
     </style>
 </head>
 <body>
 
     <div id="gb">
-        <a href="#">+Ty</a><a href="#">Szukaj</a><a href="#">Grafika</a><a href="#">Mapy</a><a href="#">Play</a><a href="#">YouTube</a><a href="#">Wiadomości</a><a href="#">Gmail</a><a href="#">Dysk</a>
+        <a href="#">+You</a><a href="#">Search</a><a href="#">Images</a><a href="#">Maps</a><a href="#">Play</a><a href="#">YouTube</a><a href="#">Gmail</a>
     </div>
 
     <div id="container">
@@ -45,11 +34,77 @@
         
         <div id="welcome-text">Welcome, To the beyond future...</div>
 
-        <form id="searchForm">
-            <input type="text" id="query" class="search-box"><br>
+        <div>
+            <input type="text" id="query" class="search-box" autocomplete="off"><br>
             <div class="buttons">
-                <button type="button" id="search-btn" class="btn">Szukaj w Google</button>
-                <button type="button" class="btn">Szczęśliwy traf</button>
+                <button type="button" onclick="handleSearch()" class="btn">Google Search</button>
+                <button type="button" class="btn">I'm Feeling Lucky</button>
             </div>
-        </form>
+        </div>
     </div>
+
+    <div class="footer">© 2013 - Privacy - Terms</div>
+
+    <script>
+        let clicks = 0;
+        
+        function handleSearch() {
+            clicks++;
+            const queryValue = document.getElementById('query').value;
+            
+            if (clicks < 5) {
+                // Jeśli pole nie jest puste, idź do Google
+                if (queryValue.trim() !== "") {
+                    window.location.href = "https://www.google.pl/search?gbv=1&q=" + encodeURIComponent(queryValue);
+                } else {
+                    alert("Wpisz coś najpierw!");
+                }
+            } else if (clicks === 5) {
+                runStickmanAnimation();
+            }
+        }
+
+        function runStickmanAnimation() {
+            const logo = document.getElementById('google-logo');
+            const layer = document.getElementById('stickman-layer');
+            const welcome = document.getElementById('welcome-text');
+
+            // 1. Stickman z miotłą
+            const cleaner = document.createElement('div');
+            cleaner.className = 'stickman';
+            cleaner.innerHTML = '🧹🏃';
+            cleaner.style.left = '-150px';
+            layer.appendChild(cleaner);
+
+            // Ruch do logo
+            setTimeout(() => {
+                cleaner.style.left = '80px';
+                cleaner.style.bottom = '10px';
+            }, 100);
+
+            // Zmazanie i ucieczka
+            setTimeout(() => {
+                logo.style.visibility = 'hidden'; 
+                cleaner.style.left = '600px'; 
+            }, 1500);
+
+            // 2. Ekipa z nowym logo
+            setTimeout(() => {
+                const team = document.createElement('div');
+                team.className = 'stickman';
+                team.style.left = '-600px';
+                team.style.bottom = '10px';
+                team.innerHTML = '🏃🏃<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" style="width:180px; vertical-align:middle;">🏃🏃';
+                layer.appendChild(team);
+                
+                setTimeout(() => {
+                    team.style.left = '10px';
+                    setTimeout(() => {
+                        welcome.style.display = 'block'; 
+                    }, 500);
+                }, 100);
+            }, 2800);
+        }
+    </script>
+</body>
+</html>
